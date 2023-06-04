@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import Slider from '../../components/Slider';
-import api from '../../services/api';
+import {
+  getMovies,
+  getTopMovies,
+  getTopSeries
+} from '../../services/utils/getData';
 import { getImages } from '../../services/utils/getImages';
 import {
   Background,
@@ -24,51 +28,31 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getMovies() {
-      const {
-        data: { results }
-      } = await api.get('/movie/popular');
-
-      setMovie(results[1]); // I can choose what movie changing index
+    async function getAllData() {
+      console.time('time');
+      setMovie(await getMovies());
+      setTopMovies(await getTopMovies());
+      setTopSeries(await getTopSeries());
+      setPopularSeries(setPopularSeries());
+      setTopPeople(setTopPeople());
+      console.timeEnd('time');
     }
 
-    async function getTopMovies() {
-      const {
-        data: { results }
-      } = await api.get('/movie/top_rated');
+    getAllData();
 
-      setTopMovies(results);
-    }
+    /*   async function getAllData() {
+      console.time('time');
 
-    async function getTopSeries() {
-      const {
-        data: { results }
-      } = await api.get('/tv/top_rated');
+    Promise.all([]);
+      setMovie(await getMovies());
+      setTopMovies(await getTopMovies());
+      setTopSeries(await getTopSeries());
+      setPopularSeries(await setPopularSeries());
+      setTopPeople(await setTopPeople());
+      console.timeEnd('time');
+    } */
 
-      setTopSeries(results);
-    }
-
-    async function getPopularSeries() {
-      const {
-        data: { results }
-      } = await api.get('/tv/popular');
-
-      setPopularSeries(results);
-    }
-
-    async function getTopPeople() {
-      const {
-        data: { results }
-      } = await api.get('/person/popular');
-
-      setTopPeople(results);
-    }
-
-    getTopPeople();
-    getPopularSeries();
-    getTopSeries();
-    getTopMovies();
-    getMovies();
+    getAllData();
   }, []);
 
   return (
