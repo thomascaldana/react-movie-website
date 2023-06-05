@@ -82,3 +82,32 @@ export const Info = styled.div`
     margin-top: 20px;
   }
 `;
+
+export const ContainerMovies = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+
+  div {
+    display: flex;
+    flex-flow: column;
+    max-width: 1000px;
+    width: 100%;
+    height: 100%;
+    margin: 20px 0;
+  }
+
+  h4 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  iframe {
+    border: none;
+  }
+`;
