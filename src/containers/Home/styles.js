@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const scale = keyframes`
+  from {
+    transform: scale(0);
+
+  }
+  to {
+    transform: scale(1);
+  }
+`;
 
 export const Background = styled.div`
   background-image: url(${(props) => props.img});
@@ -68,6 +78,7 @@ export const Poster = styled.div`
   img {
     width: 300px;
     border-radius: 30px;
+    animation: ${scale} 0.5s linear;
 
     @media screen and (max-width: 920px) {
       margin-bottom: 11rem;
